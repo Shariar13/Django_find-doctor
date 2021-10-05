@@ -13,7 +13,7 @@ SECRET_KEY = 'evyxcgwrc!r*f3*a$pl&=h%_e=_t+!4-dylkyp$d6y$jurtig='
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 
