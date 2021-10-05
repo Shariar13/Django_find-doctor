@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/CSS/all.CSS' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+    <style>
+        .nav-bar-menu>ul>li {
+            margin-left: 70px;
+        }
+
+        .nav-bar-menu>ul>li:hover {
+            border-bottom: 1px solid white;
+        }
+
+        .nav-bar-menu>ul>li:active {
+            border-bottom: 1px solid black;
+
+        }
+
+        .footer-class>ul>li {
+            display: inline;
+            color: rgb(129, 129, 129);
+            margin: 30px;
+        }
+
+        @media screen and (max-width: 479px) {
+            .title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+
+    <!-- navbar -->
+    {% if user.is_authenticated %}
+    <nav style="background-color:  #28c2eb ;" class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><span style="color: white;">Find</span><span> <i style="color: white;"
+                        class="fas fa-user-md"></i></span> <span
+                    style="font-size: 29px;color: white;"><b>Doctor</b></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav-bar-menu nav" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a style="color: white ; border-bottom: 1px solid white;" class="nav-link" aria-current="page"
+                            href="/"><i class="fas fa-home fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'feed' %}"><i
+                                class="fas fa-briefcase-medical fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="http://127.0.0.1:8000/chat/"><i
+                                class="fas fa-envelope fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user-tie fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" aria-current="page" href="{% url 'search' %}"><i
+                                class="fas fa-search fa-2x"></i></a>
+                    </li>
+
+
+                </ul>
+                <li style="float: left;margin-top: 0px;" class="nav-item dropdown">
+                    <a style="color: black;text-decoration: none;" class="nav-link-user dropdown-toggle" href="#"
+                        id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{% static 'img/user.jpg' %}" width="50" height="50" style="border-radius: 50%;">
+                        <span style="color: white;"> Sign in as shariar</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'signout' %}">Sign out</a></li>
+
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </nav>
+    <!-- navbar close -->
+
+
+
+
+   
+    <div style="background-color: white;" class="body-style">
+
+        <div style="background-color: white;border:none;" class="status-body">
+
+            <p style="color: black;font-size: 29px;">Feedback</p>
+            <hr>
+
+        </div>
+        <div style="width: 90%;height: auto;margin: auto;">
+            <div style="width: 80%;height: auto;margin: auto;">
+            <form action="{% url 'feedback_form' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Name</label>
+                  <input name="username"type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"value="{{ user.get_full_name }}">
+                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input name="email"type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"value={{ user.email }}>
+                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Any tips for us?</label>
+                  <input name="feedback"style="height: 500px;"type="text" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div style="width:100%;text-align:center;">
+                <button style="background-color: #28c2eb;border: none;border-radius: 20px;"type="submit" class="btn btn-primary">Submit</button>
+              <div>
+              </form>
+            </div>
+        </div>
+
+    </div>
+
+    
+
+    {% else %}
+
+    <div class="container my-5">
+        <div class="card text-center">
+            <div style="background-color: white;color: #28c2eb;" class="card-header">
+                Welcome
+            </div>
+            <div class="card-body">
+                <br>
+                <br>
+                <br>
+                <h5 class="card-title">Share Your Knowledge With Each Other</h5>
+                <p class="card-text">Nobody became poor by sharing knowledge</p>
+                <br>
+                <br>
+                <a href="/signin" style="background-color: #28c2eb;color: white;" class="btn btn-primary">Signin or
+                    Signup</a>
+                <br>
+                <br>
+                <br>
+            </div>
+
+            <div style="background-color: white;color: #28c2eb;" class="card-footer text-muted">
+
+                <footer style="color: #28c2eb;">Confuse? Post Your Question & Get Your Answare</footer>
+            </div>
+        </div>
+    </div>
+
+
+    {% endif %}
+
+
+
+
+
+
+    <footer class="footer">
+
+    </footer>
+
+
+    <script src="{% static 'homepage.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+</body>
+
+
+</html>

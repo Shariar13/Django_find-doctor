@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<style>
+    .doctor_list {
+        width: 90%;
+        margin: auto;
+        margin-top: 29px;
+    }
+
+    .doctor_name {
+        margin-left: 19px;
+    }
+</style>
+
+
+<div style="text-align: center;">
+    <p style="color: #28c2eb;font-size: 29px;"><b>Doctor List</b></p>
+</div>
+
+
+<div class="doctor_list">
+    <div style="width: 60%;margin: auto;border: 1px solid #28c2eb;">
+        <p style="color: #28c2eb;font-size: 29px;">Medicine Specialist</p>
+        <hr>
+        {% for doctor in object_list %}
+        {% if doctor.category == 'Medicine Specialist' %}
+          
+        
+        <a href = "{% url 'doctor_profile' doctor.pk %}"><p class="doctor_name"> Dr. {{ doctor.name }} </p></a>
+        {% endif %}
+        {% endfor %}
+        
+
+    </div>
+</div>
+<br>
+<div class="doctor_list">
+    <div style="width: 60%;margin: auto;border: 1px solid #28c2eb;">
+        <p style="color: #28c2eb;font-size: 29px;">Phychologist</p>
+        <hr>
+        {% for doctor in object_list %}
+        {% if doctor.category == 'Phychologist' %}
+          
+        
+        <a href = "{% url 'doctor_profile' doctor.pk %}"><p class="doctor_name"> Dr. {{ doctor.name }} </p></a>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+<br>
+<div class="doctor_list">
+    <div style="width: 60%;margin: auto;border: 1px solid #28c2eb;">
+        <p style="color: #28c2eb;font-size: 29px;">External Disease</p>
+        <hr>
+        {% for doctor in object_list %}
+        {% if doctor.category == 'External Disease' %}
+          
+        
+        <a href = "{% url 'doctor_profile' doctor.pk %}"><p class="doctor_name"> Dr. {{ doctor.name }} </p></a>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+<br>
+<div class="doctor_list">
+    <div style="width: 60%;margin: auto;border: 1px solid #28c2eb;">
+        <p style="color: #28c2eb;font-size: 29px;">Surgery Specialist</p>
+        <hr>
+        {% for doctor in object_list %}
+        {% if doctor.category == 'Surgery Specialist' %}
+          
+        
+        <a href = "{% url 'doctor_profile' doctor.pk %}"><p class="doctor_name"> Dr. {{ doctor.name }} </p></a>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+
+
+
+{% endblock content %}

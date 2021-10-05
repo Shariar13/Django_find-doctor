@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'fontawesome/CSS/all.CSS' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'setting.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+  <style>
+    .nav-bar-menu>ul>li {
+            margin-left: 70px;
+        }
+
+        .nav-bar-menu>ul>li:hover {
+            border-bottom: 1px solid white;
+        }
+
+        .nav-bar-menu>ul>li:active {
+            border-bottom: 1px solid black;
+
+        }
+
+    .footer-class>ul>li {
+      display: inline;
+      color: rgb(129, 129, 129);
+      margin: 30px;
+    }
+     @media screen and (max-width: 479px){
+         .title{
+        font-size:20px;
+      }
+     }
+  </style>
+
+</head>
+
+
+<body>
+  <!-- navbar -->
+  {% if user.is_authenticated %}
+
+
+
+
+
+  <div style="text-align: center;height: auto;border: 1px solid #28c2eb;" class="setting">
+
+    <h1 style="border-bottom: solid 1px #28c2eb;"><b>Contact</b></h1>
+    <div style="text-align: center;height: auto;" class="setting-info">
+
+      <form action="{% url 'contact_form' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Name</label>
+          <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"value="{{ user.get_full_name }}">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Email</label>
+          <input type="text" name="email" class="form-control" id="exampleInputPassword1"value="{{ user.email }}">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Message</label>
+          <input style="height: 500px;"type="text" name="message" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        
+        <button style="background-color:#28c2eb;border:none;"type="submit" class="btn btn-primary">Submit</button>
+        <br>
+        <br>
+      </form>
+    </div>
+  </div>
+  {% else %}
+
+  <div class="container my-5">
+    <div class="card text-center">
+      <div style="background-color: white;color: #28c2eb;" class="card-header">
+        Welcome
+      </div>
+      <div class="card-body">
+        <br>
+        <br>
+        <br>
+        <h5 class="card-title">Share Your Knowledge With Each Other</h5>
+        <p class="card-text">Nobody became poor by sharing knowledge</p>
+        <br>
+        <br>
+        <a href="/signin" style="background-color: #28c2eb;color: white;" class="btn btn-primary">Signin or Signup</a>
+        <br>
+        <br>
+        <br>
+      </div>
+
+      <div style="background-color: white;color: #28c2eb;" class="card-footer text-muted">
+
+        <footer style="color: #28c2eb;">Confuse? Post Your Question & Get Your Answare</footer>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"></script>
+</body>
+
+
+</html>

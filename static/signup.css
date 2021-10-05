@@ -1,0 +1,61 @@
+.sign-up-style{
+    width: 50%;
+    height: 500px;
+    border-left: solid 1px orangered;
+    border-right: solid 1px orangered;
+    margin: auto;
+}
+.sign-up-form-style{
+    text-align: center;
+    margin-top: 20px;
+}
+.sign-up-info{
+    width: 410px;
+}
+.sign-up-form-style>input{
+    margin-top: 50px;
+    border: none;
+    border-bottom: solid 1px orangered;
+    background-color: transparent;
+}
+.sign-up-form-style>input::placeholder{
+    color: black;
+}
+.sign-up-button-style{
+    margin-top: 50px;
+    width: 410px;
+    height: 50px;
+    background-color: orangered;
+    color: white;
+    border-radius: 20px;
+}
+.login-button-style{
+    width: 410px;
+    height: 50px;
+    background-color: orangered;
+    color: white;
+}
+@media screen and (max-width:479px){
+    .sign-up-style{
+        width: 93%;
+        
+    }
+    .sign-up-info{
+        width: 80%;
+    }
+    .firstname-lastname{
+        width: 39%;
+    }
+    .sign-up-button-style{
+        
+        width: 80%;
+    }    
+    .login-button-style{
+        width: 80%;
+        
+    }
+    .icon{
+        display: none;
+    }
+
+}

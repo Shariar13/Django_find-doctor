@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share</title>
+    <link rel="stylesheet" href="{% static 'fontawesome/CSS/all.CSS' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+    <style>
+        .nav-bar-menu>ul>li {
+            margin-left: 70px;
+        }
+
+        .nav-bar-menu>ul>li:hover {
+            border-bottom: 1px solid white;
+        }
+
+        .nav-bar-menu>ul>li:active {
+            border-bottom: 1px solid black;
+
+        }
+
+        .footer-class>ul>li {
+            display: inline;
+            color: rgb(129, 129, 129);
+            margin: 30px;
+        }
+
+        .delete-post-frame {
+            height: auto;
+            width: 70%;
+            margin: auto;
+        }
+
+        .delete-post {
+            border: 1px solid rgb(199, 199, 199);
+            width: 90%;
+            border-radius: 5px;
+            margin: auto;
+            margin-top: 29px;
+        }
+
+        .social-link {
+            margin: 10px;
+            text-decoration: none;
+            color: #28c2eb;
+        }
+
+
+
+
+
+        /* Responsive */
+        @media screen and (max-width: 900px) {
+            .delete-post-frame {
+                height: auto;
+                width: 90%;
+                margin: auto;
+            }
+
+            .delete-post {
+                border: 1px solid rgb(199, 199, 199);
+                width: 99%;
+                border-radius: 5px;
+                margin: auto;
+                margin-top: 29px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <nav style="background-color:  #28c2eb ;" class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><span style="color: white;">Find</span><span> <i style="color: white;"
+                        class="fas fa-user-md"></i></span> <span
+                    style="font-size: 29px;color: white;"><b>Doctor</b></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav-bar-menu nav" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a style="color: white ; border-bottom: 1px solid white;" class="nav-link" aria-current="page"
+                            href="/"><i class="fas fa-home fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'feed' %}"><i
+                                class="fas fa-briefcase-medical fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="http://127.0.0.1:8000/chat/"><i
+                                class="fas fa-envelope fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user-tie fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" aria-current="page" href="{% url 'search' %}"><i
+                                class="fas fa-search fa-2x"></i></a>
+                    </li>
+
+
+                </ul>
+                <li style="float: left;margin-top: 0px;" class="nav-item dropdown">
+                    <a style="color: black;text-decoration: none;" class="nav-link-user dropdown-toggle" href="#"
+                        id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{% static 'img/user.jpg' %}" width="50" height="50" style="border-radius: 50%;">
+                        <span style="color: white;"> Sign in as shariar</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'signout' %}">Sign out</a></li>
+
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+    <div class="delete-post-frame">
+        <div class="delete-post">
+
+            <div style="text-align:left;">
+
+                <p style="color:white;background-color: #28c2eb;" class="card-header">
+                    <b>{{post.author_name}}</b><small><span style="float:right;">
+                            {{ post.date }}</span></small>
+                </p>
+
+
+
+
+
+                <p style="color:black;margin:20px;">{{ post.status }}</p>
+
+
+
+
+
+            </div>
+
+
+            <hr style="color: black;">
+            <div style="text-align: center;">
+                <p>Share with ? </p>
+                <div class="social-network">
+
+
+                    <a class="social-link"
+                        href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"><i
+                            class="fab fa-facebook-square fa-3x"></i></a>
+                    <a class="social-link" href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}/&title=Unlock%20to%20Learn%20Swift%20for%20Free!%20By%20Swift%20for%20Entrepreneurs.%20Made%20for%20Non%20Techincals."><i class="fab fa-reddit-square fa-3x"></i></a>
+                    <a class="social-link"
+                        href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20{{ request.build_absolute_uri }}"><i
+                            class="fab fa-twitter-square fa-3x"></i></a>
+                    <a class="social-link" href="https://plus.google.com/share?url={{ request.build_absolute_uri }}"><i
+                            class="fas fa-envelope-square fa-3x"></i></a>
+                    <a class="social-link" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}/&title=Be%20first%20%7C%20Join%20Swift%20for%20Entrepreneurs&summary=Swift%20for%20Entrepreneurs%20is%20a%20project-based%20programming%20course%20for%20non-technical%20founders.%20We'll%20learn%20how%20to%20build%20iOS%20apps%20from%20scratch%20using%20Apple's%20new%20programming%20language:%20Swift.%20Be%20first%20and%20learn%20with%20me!&source=http://swiftforentrepreneurs.com/"><i class="fab fa-linkedin fa-3x"></i></a>
+
+
+
+                </div>
+            </div>
+
+            <div>
+
+
+            </div>
+            <br>
+        </div>
+        <br>
+        <hr style="width: 90%;color: black;margin: auto;">
+        {% if user.username == post.post_author %}
+        <div style="text-align: center;">
+            <form method="post">
+                {% csrf_token %}
+                <p style="font-size: 29px;"><b>Are you sure to want to delete this post?</b></p>
+                <button
+                    style="background-color: #28c2eb;color: white;border: #28c2eb;width: 70px;border-radius: 11px;">Yes</button>
+
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+
+
+
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+
+</html>

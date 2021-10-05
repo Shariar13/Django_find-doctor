@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="stylesheet" href="{% static 'fontawesome/CSS/all.CSS' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+    <style>
+        .nav-bar-menu>ul>li {
+            margin-left: 70px;
+        }
+
+        .nav-bar-menu>ul>li:hover {
+            border-bottom: 1px solid white;
+        }
+
+        .nav-bar-menu>ul>li:active {
+            border-bottom: 1px solid black;
+
+        }
+
+        .footer-class>ul>li {
+            display: inline;
+            color: rgb(129, 129, 129);
+            margin: 30px;
+        }
+
+        .delete-post-frame {
+            height: auto;
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+
+        .delete-post {
+            border: 1px solid rgb(199, 199, 199);
+            width: 90%;
+            border-radius: 5px;
+            margin: auto;
+            margin-top: 29px;
+            text-align: center;
+        }
+
+
+
+
+        /* Responsive */
+        @media screen and (max-width: 479px) {
+            .delete-post-frame {
+                height: auto;
+                width: 90%;
+                margin: auto;
+
+            }
+
+            .delete-post {
+                border: 1px solid rgb(199, 199, 199);
+                width: 99%;
+                border-radius: 5px;
+                margin: auto;
+                margin-top: 29px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+     <nav style="background-color:  #28c2eb ;" class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><span style="color: white;">Find</span><span> <i style="color: white;"
+                        class="fas fa-user-md"></i></span> <span
+                    style="font-size: 29px;color: white;"><b>Doctor</b></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav-bar-menu nav" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a style="color: white ; border-bottom: 1px solid white;" class="nav-link" aria-current="page"
+                            href="/"><i class="fas fa-home fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'feed' %}"><i
+                                class="fas fa-briefcase-medical fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="http://127.0.0.1:8000/chat/"><i
+                                class="fas fa-envelope fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user-tie fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" aria-current="page" href="{% url 'search' %}"><i
+                                class="fas fa-search fa-2x"></i></a>
+                    </li>
+
+
+                </ul>
+                <li style="float: left;margin-top: 0px;" class="nav-item dropdown">
+                    <a style="color: black;text-decoration: none;" class="nav-link-user dropdown-toggle" href="#"
+                        id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{% static 'img/user.jpg' %}" width="50" height="50" style="border-radius: 50%;">
+                        <span style="color: white;"> Sign in as shariar</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'signout' %}">Sign out</a></li>
+
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <div class="delete-post-frame">
+        <div class="delete-post">
+
+            {% csrf_token %}
+
+            <p>Reason</p>
+            <input type="text" style="height: 100px;width: 80%;">
+            <br>
+            <br>
+
+            <!-- Button trigger modal -->
+            <button style="background-color: #28c2eb;color: white;border: #28c2eb;" type="button"
+                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Submit
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Report Post</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Reported.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                            <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <p id="demo"></p>
+
+        </div>
+        <br>
+        <hr style="width: 90%;color: black;margin: auto;">
+
+    </div>
+
+
+
+
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script>
+        function myFunction() {
+            document.getElementById("demo").innerHTML = "Reported";
+        }
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/CSS/all.CSS' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+    <style>
+       .nav-bar-menu>ul>li {
+      margin-left: 70px;
+    }
+
+    .nav-bar-menu>ul>li:hover {
+      border-bottom: 1px solid white;
+    }
+
+    .nav-bar-menu>ul>li:active {
+      border-bottom: 1px solid black;
+
+    }
+
+    .search {
+        text-align: center;
+    }
+
+    .search_result {
+      color: #28c2eb;
+      font-size: 19px;
+      margin-left: 19px;
+    }
+
+    .search_result_name {
+      width: 82%;
+      margin: auto;
+      border: 1px solid #28c2eb;
+    }
+     @media screen and (max-width: 479px){
+         .title{
+        font-size:20px;
+      }
+     }
+    </style>
+</head>
+
+
+<body>
+
+
+
+    <!-- navbar -->
+   
+    <nav style="background-color:   #28c2eb  ;" class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}"><span style="color: white;">Find</span><span> <i
+                style="color: white;" class="fas fa-user-md"></i></span> <span
+              style="font-size: 29px;color: white;"><b>Doctor</b></span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse nav-bar-menu nav" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+              <li class="nav-item">
+                <a style="color: white ; border-bottom: 1px solid white;" class="nav-link" aria-current="page" href="/"><i
+                    class="fas fa-home fa-2x"></i></a>
+              </li>
+              <li class="nav-item">
+                <a style="color: white;" class="nav-link" href="{% url 'feed' %}"><i
+                    class="fas fa-briefcase-medical fa-2x"></i></a>
+              </li>
+    
+              <li class="nav-item">
+                <a style="color: white;" class="nav-link" href="http://127.0.0.1:8000/chat/"><i
+                    class="fas fa-envelope fa-2x"></i></a>
+              </li>
+              <li class="nav-item">
+                <a style="color: white;" class="nav-link" href="{% url 'profile' %}"><i
+                    class="fas fa-user-tie fa-2x"></i></a>
+              </li>
+              <li class="nav-item">
+                <a style="color: white;" class="nav-link" aria-current="page" href="{% url 'search' %}"><i
+                    class="fas fa-search fa-2x"></i></a>
+              </li>
+              <li class="nav-item">
+                {% for doctor in doctor_list %}
+    
+                {% if doctor.username == user.username and doctor.status == 'pending' %}
+                <p style="font-size: 19px;color: white;">Your application is under review</p>
+    
+                {% elif doctor.username == user.username and doctor.status == 'done' %}
+                <p style="font-size: 19px;color: white;">Welcome Dr. {{ doctor.name }}</p>
+    
+                {% endif %}
+                {% endfor %}
+              </li>
+    
+            </ul>
+            <li style="float: left;margin-top: 0px;" class="nav-item dropdown">
+              <a style="color: black;text-decoration: none;" class="nav-link-user dropdown-toggle" href="#"
+                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'img/user.jpg' %}" width="50" height="50" style="border-radius: 50%;">
+                <span style="color: white;"> Sign in as {{ user.username }}</span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'signout' %}">Sign out</a></li>
+    
+              </ul>
+            </li>
+          </div>
+        </div>
+      </nav>
+    <!-- navbar close -->
+
+<div class="search">
+<form action="{% url 'search' %}" method="POST">
+    {% csrf_token %}
+    <br>
+    <input name="search"type="search">
+    <br>
+    <br>
+    <input style="background-color: #28c2eb;color: white;width: 99px;border-radius: 5px;"type="submit" value="Search">
+
+</form>
+</div>
+
+<br>
+<div style="text-align: center;">
+  {% if search %}
+  Search Result
+    
+  {% endif %}
+</div>
+
+<br>
+<div class="search_result_name">
+    <b class="search_result">Doctor Found</b>
+    <hr>
+    {% if search %}
+    {% for doctor in Doctor_list %}
+      <p>Dr. {{ doctor.name }}</p>
+      <p>Phone : {{ doctor.phone }}</p>
+      <p>Email : {{ doctor.email }}</p>
+      <p>Address : {{ doctor.address }}</p>
+      <p>University : {{ doctor.university }}</p>
+      <hr>
+    {% endfor %}
+    {% endif %}
+    
+
+</div>
+
+<div class="search_result_name">
+    <b class="search_result">User Found</b>
+    <hr>
+    {% if search %}
+    {% for User in User_list %}
+      {{ User.get_full_name }}
+      <hr>
+    {% endfor %}
+      
+    {% endif %}
+    
+
+</div>
+
+<div class="search_result_name">
+    <b class="search_result">Post Found</b>
+    <hr>
+    {% if search %}
+    {% for post in Post_list %}
+
+    <div class="status-box">
+      <div style="text-align:left;">
+        <p style="color:white;background-color: #28c2eb;" class="card-header"><a
+            style="color:white;background-color: #28c2eb;text-decoration: none;"
+            href="{% url 'post_profile' post.pk %}"><b>{{post.author_name}}</b></a>
+          <small>
+            <span style="margin-right: 10px;float: right;">
+              {{ post.date }}</span></small>
+        </p>
+
+        <p style="color:black;margin:20px;">{{ post.status|safe|truncatewords:"80" }} <a
+            style="text-decoration: none;color: #28c2eb;" href="{% url 'comments' post.pk %}">Continue</a></p>
+
+      </div>
+      <hr style="color: black;">
+      <div>
+        {% csrf_token %}
+        <a href="{% url 'report' %}"><button
+            style="margin-bottom:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Report</button></a>
+        <a href="{% url 'comments' post.pk %}"><button
+            style="margin-bottom:10px;margin-left:10px;margin-right:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Comment</button></a>
+        {% if user.get_full_name == post.author_name %}
+        <a href="{% url 'edit' post.pk %}"><button
+            style="margin-bottom:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Edit</button></a>
+        {% else %}
+        <a href="{% url 'share' post.pk %}"><button
+            style="margin-bottom:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Share</button></a>
+        {% endif %}
+        
+      </div>
+
+    </div>
+
+
+
+    {% endfor %}
+      
+    {% endif %}
+    
+
+</div>
+
+<div class="search_result_name">
+    <b class="search_result">Feed Found</b>
+    <hr>
+    {% if search %}
+    {% for feeds in Feed_list %}
+
+    <div class="status-box">
+      <div style="text-align:left;">
+        <p style="color:white;background-color: #28c2eb;" class="card-header"><a
+            style="color:white;background-color: #28c2eb;text-decoration: none;" href="{% url 'feed' %}"><b>Dr. {{ feeds.name }}</b></a>
+          <small>
+            <span style="margin-right: 10px;float: right;">
+              {{ feeds.date }}</span></small>
+        </p>
+
+        <p style="color:black;margin:20px;">{{ feeds.feed|safe|truncatewords:"80" }} <a
+            style="text-decoration: none;color: #28c2eb;" href="{% url 'comments_for_feed' feeds.pk %}">Continue</a>
+        </p>
+
+      </div>
+      <hr style="color: black;">
+      <div>
+        {% csrf_token %}
+        <a href="{% url 'report' %}"><button
+            style="margin-bottom:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Report</button></a>
+        <a href="{% url 'comments_for_feed' feeds.pk %}"><button
+            style="margin-bottom:10px;margin-left:10px;margin-right:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Comment</button></a>
+        {% if user.username == post.author_name %}
+        <a href="{% url 'edit' post.pk %}"><button
+            style="margin-bottom:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Edit</button></a>
+        {% else %}
+        <a href="#"><button
+            style="margin-bottom:10px;width: 30%;height:29px;border:black;border-radius:11px;background-color: #f3f3f3 ; color: black;"
+            onmouseover="this.style.backgroundColor='  #e3e3e3 '"
+            onmouseout="this.style.backgroundColor=''">Share</button></a>
+        {% endif %}
+        
+      </div>
+
+    </div>
+
+    <br>
+    {% endfor %}
+      
+    {% endif %}
+   
+
+</div>
+
+
+
+
+
+
+
+
+    <script src="{% static 'homepage.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
